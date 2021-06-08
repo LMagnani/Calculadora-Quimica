@@ -1,3 +1,4 @@
+# Imported Libraries
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, FallOutTransition
@@ -19,6 +20,7 @@ BtnColor = Color(148, 100, 47, 1, mode='hsv')
 
 from sys import exit
 
+# Dictionary definition 
 tp = {}
 file = open('file.csv', 'r', encoding='latin-1')
 i = 1
@@ -30,13 +32,14 @@ for x in file:
         tp[items[0].upper()] = [items[1], i, float(items[2]), float(items[3])]
     i += 1
 
-
+# Load Kivy file, all screens defined there
 Builder.load_file('fef0.kv')
         
-
+# Define Main Screen
 class MainScreen(Screen):
     pass
 
+# Define methods for screen 'Function 1'. Searches the dictionary for the element data.
 class Function1(Screen):
     datos = StringProperty()
     def data(self, elemento):
@@ -52,6 +55,7 @@ class Function1(Screen):
             self.datos = 'El elemento ingresado no existe'
     pass
 
+# Define methods for screen 'Function 2'. Searches electronegativity of both inserted elements and calculates the difference.
 class Function2(Screen):
     Diferencia = StringProperty()
     def difEn(self, S1, S2):
@@ -76,6 +80,7 @@ class Function2(Screen):
         pass
     pass
 
+# Define the methods for screen 'Function 3'. Divides the inserted molecule. Searches the molar mass. Add them up.
 class Function3(Screen):
     datos = StringProperty()
 
@@ -170,7 +175,7 @@ class Function3(Screen):
                     elementos.append(elementos[len(elementos)-1])
                 x += k
 
-            #Ahora los parentesís.
+            #Ahora los parentesis.
             elif(letra == '('):
                 k = x
                 nume = ''
@@ -218,6 +223,7 @@ class Function3(Screen):
                 
         pass
 
+# Define methods for screen 'Function 5'. Show all of the elements in a scroll page.
 class Function5(Screen):
     final = StringProperty()
     def main(self):
@@ -236,7 +242,7 @@ class Function5(Screen):
         hecho = True
     pass
 
-
+# Add screens to ScreenManager
 sm = ScreenManager(transition=FallOutTransition())
 sm.add_widget(MainScreen(name='main'))
 sm.add_widget(Function1(name='funct1'))
@@ -245,13 +251,13 @@ sm.add_widget(Function3(name='funct3'))
 sm.add_widget(Function5(name='funct5'))
     
 
-
+# Define App
 class PruebaApp(App):
         
     def build(self):
         self.icon = 'luc4.png'
         return sm
 
-
+# Run
 if __name__ == "__main__":
 	PruebaApp().run()
